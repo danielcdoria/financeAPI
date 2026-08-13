@@ -39,7 +39,7 @@ public class AuthService {
     public AuthResponseDto login(LoginRequestDto dto){
         User user = repository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Email or Password."));
-        if (!passwordEncoder.matches(dto.getPassword(), dto.getEmail())){
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())){
             throw new IllegalArgumentException("Invalid Email or Password.");
         }
         String token = jwtUtil.generateToken(user.getEmail());
