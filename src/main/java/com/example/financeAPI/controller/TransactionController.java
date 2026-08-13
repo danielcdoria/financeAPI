@@ -3,9 +3,8 @@ package com.example.financeAPI.controller;
 import com.example.financeAPI.dtos.transactionDtos.TransactionRequestDto;
 import com.example.financeAPI.dtos.transactionDtos.TransactionResponseDto;
 import com.example.financeAPI.models.Transaction;
-import com.example.financeAPI.models.User;
 import com.example.financeAPI.service.TransactionService;
-import jdk.jfr.Category;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ public class TransactionController {
     }
 
     @PostMapping("/transactions")
-    public ResponseEntity<TransactionResponseDto> create(@RequestBody TransactionRequestDto dto){
+    public ResponseEntity<TransactionResponseDto> create(@Valid @RequestBody TransactionRequestDto dto){
         TransactionResponseDto transaction = service.createTransaction(dto);
         return ResponseEntity.status(201).body(transaction);
     }
